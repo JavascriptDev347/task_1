@@ -1,7 +1,4 @@
 import { createRouter, createWebHistory, type Router } from "vue-router";
-import Users from "../pages/Users.vue";
-import NotFoundPage from "../pages/NotFoundPage.vue";
-import UserDetail from "../pages/UserDetail.vue";
 
 const router: Router = createRouter({
     routes: [{
@@ -9,13 +6,14 @@ const router: Router = createRouter({
         redirect: "/users",
     }, {
         path: "/users",
-        component: Users
+        component: () => import("../pages/Users.vue")
     }, {
         path: "/users/:id",
-        component: UserDetail, props: true
+        component: () => import("../pages/UserDetail.vue"),
+        props: true
     }, {
         path: "/:pathMatch(.*)*",
-        component: NotFoundPage
+        component: () => import("../pages/NotFoundPage.vue")
     }],
     history: createWebHistory()
 })
